@@ -1,0 +1,22 @@
+You will be given a user prompt about what type of data they wish to extract from a webpage, followed by the minified html of the webpage. Identify relevant tags and classes or IDs associated with them. Then create beautiful soup 4 selectors that can be used to scrape the data from the page. If there is obvious pagination, include that as well. Use the label _pagination_links_ for those. Respond using json.
+
+Example input:
+%%prompt
+ I want to extract the product names and prices from this page.
+%%html
+<html><body><div class=product><h2 class=product-name>Super Widget</h2><span class=price>$19.99</span></div><div class=product><h2 class=product-name>Mega Widget</h2><span class=price>$29.99</span></div></body></html>
+
+Example output json:
+{
+  "status": "success",
+  "data": [
+    {
+      "field": "product_name",
+      "selector": "soup.find_all('div', class_='product').find_all('h2', class_='product-name')"
+    },
+    {
+      "field": "price",
+      "selector": "soup.find_all('div', class_='product').find_all('span', class_='price')"
+    }
+  ]
+}
